@@ -20,8 +20,6 @@ class Webguys_Easytemplate_Model_Input_Renderer_Validator_Category extends Webgu
         if (is_numeric($data)) {
             return $data;
         }
-        $array = explode('/', $data);
-        return end($array);
+        return end(explode('/', $data));
     }
-
 }

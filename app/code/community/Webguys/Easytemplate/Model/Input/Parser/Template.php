@@ -7,8 +7,7 @@
  * @method getCategory
  * @method getImage
  */
-class Webguys_Easytemplate_Model_Input_Parser_Template
-    extends Webguys_Easytemplate_Model_Input_Parser_Abstract
+class Webguys_Easytemplate_Model_Input_Parser_Template extends Webguys_Easytemplate_Model_Input_Parser_Abstract
 {
 
     public function isHidden()
@@ -82,7 +81,7 @@ class Webguys_Easytemplate_Model_Input_Parser_Template
 
         if ($fields && $fields->hasChildren()) {
 
-            foreach ($fields->children() AS $data) {
+            foreach ($fields->children() as $data) {
                 /** @var $parser Webguys_Easytemplate_Model_Input_Parser_Field */
                 $parser = Mage::getModel('easytemplate/input_parser_field');
                 $parser->setConfig($data);
@@ -93,7 +92,6 @@ class Webguys_Easytemplate_Model_Input_Parser_Template
 
             // Sort fields by sort_order
             usort($result, array($this, 'orderFields'));
-
         }
 
         return $result;

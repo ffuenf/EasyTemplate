@@ -68,5 +68,4 @@ class Webguys_Easytemplate_Block_Adminhtml_Edit_Selection extends Mage_Core_Bloc
 
         return $categories;
     }
-
 }

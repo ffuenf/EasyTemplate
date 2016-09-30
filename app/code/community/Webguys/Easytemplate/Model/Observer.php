@@ -22,16 +22,22 @@ class Webguys_Easytemplate_Model_Observer extends Mage_Core_Model_Abstract
                 $sourceModel = Mage::getModel('easytemplate/config_source_cms_page_viewmode');
 
                 /** @var $element Varien_Data_Form_Element_Fieldset */
-                $element->addField('view_mode', 'select', array(
-                    'label'     => Mage::helper('easytemplate')->__('Mode'),
-                    'title'     => Mage::helper('easytemplate')->__('View Mode'),
-                    'name'      => 'view_mode',
-                    'required'  => true,
-                    'options'   => $sourceModel->toArray(),
-                    'note'      => Mage::helper('easytemplate')->__('Use the template engine or default behavior'),
-                    'disabled'  => false,
-                    'onchange'  => "if($('page_tabs_content_section')) { if(this.value=='easytemplate') { $('page_tabs_content_section').hide(); $('page_content').removeClassName('required-entry'); } else { $('page_tabs_content_section').show(); $('page_content').addClassName('required-entry'); } }"
-                ));
+                $element->addField(
+                    'view_mode',
+                    'select',
+                    array(
+                        'label' => Mage::helper('easytemplate')->__('Mode'),
+                        'title' => Mage::helper('easytemplate')->__('View Mode'),
+                        'name' => 'view_mode',
+                        'required' => true,
+                        'options' => $sourceModel->toArray(),
+                        'note' => Mage::helper('easytemplate')->__('Use the template engine or default behavior'),
+                        'disabled' => false,
+                        'onchange' => "if($('page_tabs_content_section')) { if(this.value=='easytemplate') { $('page_tabs_content_section').hide(); $('page_content').removeClassName('required-entry'); } else { $('page_tabs_content_section').show(); $('page_content').addClassName('required-entry'); } }"
+                    )
+                );
+                /** Break the loop after default/first fieldset */
+                break;
             }
         }
     }
@@ -74,10 +80,8 @@ class Webguys_Easytemplate_Model_Observer extends Mage_Core_Model_Abstract
             /** @var $helper Webguys_Easytemplate_Helper_Category */
             $helper = Mage::helper('easytemplate/category');
 
-            if( $category->getUseEasytemplate() )
-            {
-                if ( $group = $helper->getGroupByCategoryId( $category->getId(), Mage::app()->getStore()->getId(), true ) )
-                {
+            if ($category->getUseEasytemplate()) {
+                if ($group = $helper->getGroupByCategoryId($category->getId(), Mage::app()->getStore()->getId(), true)) {
                     // Override display mode if not configured correctly
 
                     /** @var $curCategory Mage_Catalog_Model_Category */
@@ -89,7 +93,7 @@ class Webguys_Easytemplate_Model_Observer extends Mage_Core_Model_Abstract
                     // Replace original category content
                     /** @var $renderer Webguys_Easytemplate_Block_Renderer */
                     $renderer = Mage::app()->getLayout()->createBlock('easytemplate/renderer', 'easytemplate_category');
-                    $renderer->setGroup( $group );
+                    $renderer->setGroup($group);
                     $renderer->setParentBlock($block);
 
                     $block->setCmsBlockHtml( $renderer->toHtml() );
@@ -109,8 +113,7 @@ class Webguys_Easytemplate_Model_Observer extends Mage_Core_Model_Abstract
         /** @var $helper Webguys_Easytemplate_Helper_Page */
         $helper = Mage::helper('easytemplate/page');
 
-        if ($helper->isEasyTemplatePage($page->getId()) )
-        {
+        if ($helper->isEasyTemplatePage($page->getId())) {
             $action->getLayout()->getUpdate()->addHandle('cms_easytemplate');
         }
     }
@@ -137,14 +140,13 @@ class Webguys_Easytemplate_Model_Observer extends Mage_Core_Model_Abstract
                 if ( $group = $helper->getGroupByPageId( $pageId ) ) {
                     /** @var $renderer Webguys_Easytemplate_Block_Renderer */
                     $renderer = Mage::app()->getLayout()->createBlock('easytemplate/renderer');
-                    $renderer->setGroup( $group );
+                    $renderer->setGroup($group);
                     $renderer->setParentBlock($block);
                     $html = $renderer->toHtml();
                 }
 
                 $transport->setHtml( $html );
             }
-
         } elseif ($block instanceof Mage_Cms_Block_Block) {
 
             /** @var $block Mage_Cms_Block_Block  */
@@ -159,7 +161,7 @@ class Webguys_Easytemplate_Model_Observer extends Mage_Core_Model_Abstract
                 if ( $group = $helper->getGroupByBlockId( $InternalBlockId ) ) {
                     /** @var $renderer Webguys_Easytemplate_Block_Renderer */
                     $renderer = Mage::app()->getLayout()->createBlock('easytemplate/renderer');
-                    $renderer->setGroup( $group );
+                    $renderer->setGroup($group);
                     $renderer->setParentBlock($block);
                     $html = $renderer->toHtml();
                 }
@@ -167,14 +169,12 @@ class Webguys_Easytemplate_Model_Observer extends Mage_Core_Model_Abstract
                 $transport->setHtml( $html );
             }
         }
-
     }
 
     public function adminhtml_block_html_before($observer)
     {
         $block = $observer->getEvent()->getBlock();
-        if ($block instanceof Mage_Adminhtml_Block_Cms_Page_Grid ||
-            $block instanceof Mage_Adminhtml_Block_Cms_Block_Grid) {
+        if ($block instanceof Mage_Adminhtml_Block_Cms_Page_Grid || $block instanceof Mage_Adminhtml_Block_Cms_Block_Grid) {
 
             /** @var $sourceModel Webguys_Easytemplate_Model_Config_Source_Cms_Page_Viewmode */
             $sourceModel = Mage::getModel('easytemplate/config_source_cms_page_viewmode');
@@ -192,7 +192,6 @@ class Webguys_Easytemplate_Model_Observer extends Mage_Core_Model_Abstract
                 ),
                 'root_template'
             );
-
         }
     }
 
@@ -202,10 +201,13 @@ class Webguys_Easytemplate_Model_Observer extends Mage_Core_Model_Abstract
         $tabs = $observer->getTabs();
 
         if (Mage::getStoreConfig('easytemplate/configuration/use_in_categories')) {
-            $tabs->addTab('easytemplate', array(
-                'label'     => Mage::helper('catalog')->__('Easy template'),
-                'content'   => $tabs->getLayout()->getBlock('adminhtml_category_templates')->toHtml(),
-            ));
+            $tabs->addTab(
+                'easytemplate',
+                array(
+                    'label' => Mage::helper('catalog')->__('Easy template'),
+                    'content' => $tabs->getLayout()->getBlock('adminhtml_category_templates')->toHtml(),
+                )
+            );
         }
     }
 
@@ -213,6 +215,10 @@ class Webguys_Easytemplate_Model_Observer extends Mage_Core_Model_Abstract
     {
         /** @var $category Mage_Catalog_Model_Category */
         $category = $observer->getDataObject();
+
+        if($category == null){
+            return;
+        }
 
         /** @var $group Webguys_Easytemplate_Model_Group */
         $group = Mage::helper('easytemplate/category')->getGroupByCategoryId( $category->getId(), $category->getStoreId() );
