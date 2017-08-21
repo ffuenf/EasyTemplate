@@ -9,6 +9,7 @@
 class Webguys_Easytemplate_Block_Renderer extends Mage_Core_Block_Template
 {
     protected $_cachingAllowed = true;
+    protected $parentId = null;
 
     public function __construct(array $args = array())
     {
@@ -24,6 +25,8 @@ class Webguys_Easytemplate_Block_Renderer extends Mage_Core_Block_Template
         return array(
             'BLOCK_TPL_EASYTEMPLATE',
             Mage::app()->getStore()->getCode(),
+            (int)Mage::app()->getStore()->isCurrentlySecure(),
+            Mage::getSingleton('customer/session')->isLoggedIn(),
             $this->getGroup()->getId()
         );
     }
@@ -41,6 +44,8 @@ class Webguys_Easytemplate_Block_Renderer extends Mage_Core_Block_Template
      */
     public function setChildsBasedOnGroup($group, $parent = null)
     {
+        $this->parentId = $parent;
+
         if (!$this->countChildren()) {
             Varien_Profiler::start('easytemplate_template_rendering');
 

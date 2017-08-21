@@ -1,5 +1,4 @@
 .easy-templates .template-box {
-    border: 1px solid #cddddd;
     padding: 1em;
     background: #e7efef;
     margin: 1.5em 0;
@@ -84,6 +83,10 @@
 
 .template_overview {
     width: 100%
+}
+
+.template_container {
+	margin-top: 20px;
 }
 
 .easytemplate .clear {
@@ -249,4 +252,16 @@
 #easy_templates_container .reference {
     padding-left: 10px;
     margin-top: 10px;
+}
+
+.reference .template-box {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.reference .template_overview {
+    border: 1px solid #d6d6d6;
+    padding: 5px;
 }
