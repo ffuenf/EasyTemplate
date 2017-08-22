@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
 <layout version="0.1.0">
-
     <default>
         <reference name="category.edit">
             <reference name="head">
@@ -15,21 +14,21 @@
                     <type>skin_js</type>
                     <name>easytemplate/general.js</name>
                 </action>
+                <action method="addJs">
+                    <script>jscolor/jscolor.js</script>
+                </action>
             </reference>
         </reference>
         <reference name="category.edit">
             <block type="easytemplate/adminhtml_category_templates" name="adminhtml_category_templates">
-                <block type="easytemplate/adminhtml_edit_selection" name="selection" as="selection"
-                       template="easytemplate/edit/selection.phtml"/>
+                <block type="easytemplate/adminhtml_edit_selection" name="selection" as="selection" template="easytemplate/edit/selection.phtml"/>
             </block>
         </reference>
     </default>
-
     <adminhtml_cms_page_edit>
         <reference name="cms_page_edit_tabs">
             <block type="easytemplate/adminhtml_cms_page_edit_tab_templates" name="cms_page_edit_tab_templates">
-                <block type="easytemplate/adminhtml_edit_selection" name="selection" as="selection"
-                       template="easytemplate/edit/selection.phtml"/>
+                <block type="easytemplate/adminhtml_edit_selection" name="selection" as="selection" template="easytemplate/edit/selection.phtml"/>
             </block>
             <action method="addTab">
                 <name>easy_template</name>
@@ -40,7 +39,6 @@
             <block template="easytemplate/double-click-block.phtml" type="core/template"  name="webguys.easytemplate.dblcl.block" />
         </reference>
     </adminhtml_cms_page_edit>
-
     <adminhtml_cms_block_edit>
         <remove name="cms_block_edit"/>
         <reference name="content">
@@ -48,14 +46,10 @@
         </reference>
         <reference name="left">
             <block type="easytemplate/adminhtml_cms_block_edit_tabs" name="easytemplate_cms_block_edit_tabs">
-                <block type="easytemplate/adminhtml_cms_block_edit_tab_main"
-                       name="easytemplate_cms_block_edit_tab_main"/>
-                <block type="easytemplate/adminhtml_cms_block_edit_tab_content"
-                       name="easytemplate_cms_block_edit_tab_content"/>
-                <block type="easytemplate/adminhtml_cms_block_edit_tab_templates"
-                       name="easytemplate_cms_block_edit_tab_templates">
-                    <block type="easytemplate/adminhtml_edit_selection" name="selection" as="selection"
-                           template="easytemplate/edit/selection.phtml"/>
+                <block type="easytemplate/adminhtml_cms_block_edit_tab_main" name="easytemplate_cms_block_edit_tab_main"/>
+                <block type="easytemplate/adminhtml_cms_block_edit_tab_content" name="easytemplate_cms_block_edit_tab_content"/>
+                <block type="easytemplate/adminhtml_cms_block_edit_tab_templates" name="easytemplate_cms_block_edit_tab_templates">
+                    <block type="easytemplate/adminhtml_edit_selection" name="selection" as="selection" template="easytemplate/edit/selection.phtml"/>
                 </block>
                 <action method="addTab">
                     <name>main_section</name>
@@ -75,31 +69,23 @@
             <block template="easytemplate/double-click-block.phtml" type="core/template"  name="webguys.easytemplate.dblcl.block" />
         </reference>
     </adminhtml_cms_block_edit>
-
     <adminhtml_easytemplate_chooser_image_index>
         <remove name="footer"/>
         <remove name="head"/>
         <reference name="left">
-            <block name="wysiwyg_images.js" type="adminhtml/cms_wysiwyg_images_content"
-                   template="cms/browser/js.phtml"/>
-            <block name="wysiwyg_images.tree" type="adminhtml/cms_wysiwyg_images_tree"
-                   template="cms/browser/tree.phtml"/>
+            <block name="wysiwyg_images.js" type="adminhtml/cms_wysiwyg_images_content" template="cms/browser/js.phtml"/>
+            <block name="wysiwyg_images.tree" type="adminhtml/cms_wysiwyg_images_tree" template="cms/browser/tree.phtml"/>
         </reference>
         <reference name="content">
-            <block name="wysiwyg_images.content" type="adminhtml/cms_wysiwyg_images_content"
-                   template="cms/browser/content.phtml">
+            <block name="wysiwyg_images.content" type="adminhtml/cms_wysiwyg_images_content" template="cms/browser/content.phtml">
                 <block name="wysiwyg_images.uploader" type="adminhtml/cms_wysiwyg_images_content_uploader" template="media/uploader.phtml">
                     <block name="additional_scripts" type="core/template" template="cms/browser/content/uploader.phtml"/>
                 </block>
-                <block name="wysiwyg_images.newfolder" type="adminhtml/cms_wysiwyg_images_content_newfolder"
-                       template="cms/browser/content/newfolder.phtml"/>
+                <block name="wysiwyg_images.newfolder" type="adminhtml/cms_wysiwyg_images_content_newfolder" template="cms/browser/content/newfolder.phtml"/>
             </block>
         </reference>
     </adminhtml_easytemplate_chooser_image_index>
-
     <adminhtml_easytemplate_chooser_image_contents>
-        <block name="wysiwyg_images.files" type="adminhtml/cms_wysiwyg_images_content_files"
-               template="cms/browser/content/files.phtml" output="toHtml"/>
+        <block name="wysiwyg_images.files" type="adminhtml/cms_wysiwyg_images_content_files" template="cms/browser/content/files.phtml" output="toHtml"/>
     </adminhtml_easytemplate_chooser_image_contents>
-
 </layout>
