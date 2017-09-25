@@ -90,7 +90,6 @@ class Webguys_Easytemplate_Model_Input_Parser_Template extends Webguys_Easytempl
         $result = array();
 
         if ($fields && $fields->hasChildren()) {
-
             foreach ($fields->children() as $data) {
                 /** @var $parser Webguys_Easytemplate_Model_Input_Parser_Field */
                 $parser = Mage::getModel('easytemplate/input_parser_field');

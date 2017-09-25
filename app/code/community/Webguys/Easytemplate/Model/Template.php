@@ -129,8 +129,10 @@ class Webguys_Easytemplate_Model_Template extends Mage_Core_Model_Abstract
         $configModel = Mage::getSingleton('easytemplate/input_parser');
 
         if ($model = $configModel->getTemplate($this->getCode())) {
-
             foreach ($model->getFields() as $field) {
+                if (!isset($this->_field_data[$field->getCode()])) {
+                    continue;
+                }
 
                 $inputValidator = $field->getInputRendererValidator();
                 $inputValidator->setTemplate($this);
@@ -209,6 +211,6 @@ class Webguys_Easytemplate_Model_Template extends Mage_Core_Model_Abstract
         if ($field === null) {
             return $this->_field_data;
         }
-        return $this->_field_data[$field];
+        return isset($this->_field_data[$field]) ? $this->_field_data[$field] : null;
     }
 }
